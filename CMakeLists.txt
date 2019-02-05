@@ -4,7 +4,7 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/Modules")
 include(MkUtils)
 MkDownloadMMDBDatabases()
 MkDownloadCABundle()
-set(VERSION 20181203)
+set(VERSION 20190205)
 execute_process(
   COMMAND ${CMAKE_COMMAND} -E tar cvzf "generic-assets-${VERSION}.tar.gz"
   "README.md" "asn.mmdb" "ca-bundle.pem" "country.mmdb"
