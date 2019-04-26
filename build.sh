@@ -25,3 +25,7 @@ autogen_get_geoip
 curl -fsSLo ca-bundle.pem https://curl.haxx.se/ca/cacert.pem
 tar -cvzf "generic-assets-${version}.tar.gz"                                   \
   "README.md" "asn.mmdb" "ca-bundle.pem" "country.mmdb"
+gzip -9 asn.mmdb
+gzip -9 country.mmdb
+echo "# git commit -am \"Release $version\""
+echo "# git tag -s $version"
