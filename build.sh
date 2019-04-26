@@ -22,7 +22,7 @@ autogen_get_geoip() {
 
 rm -rf assets
 mkdir assets
-version=`date +%Y%m%d`
+version=`date +%Y%m%d%H%M%S`
 autogen_get_geoip
 curl -fsSLo ca-bundle.pem https://curl.haxx.se/ca/cacert.pem
 tar -cvzf "assets/generic-assets-${version}.tar.gz"                            \
