@@ -27,11 +27,9 @@ autogen_get_geoip
 curl -fsSLo ca-bundle.pem https://curl.haxx.se/ca/cacert.pem
 tar -cvzf "assets/generic-assets-${version}.tar.gz"                            \
   "README.md" "asn.mmdb" "ca-bundle.pem" "country.mmdb"
-rm ca-bundle.pem
-gzip -9 asn.mmdb
-mv asn.mmdb.gz assets/
-gzip -9 country.mmdb
-mv country.mmdb.gz assets/
+mv ca-bundle.pem assets/
+mv asn.mmdb assets/
+mv country.mmdb assets/
 shasum -a 256 assets/* > SHA256SUMS
 git add SHA256SUMS
 echo "# To continue with the release run"
