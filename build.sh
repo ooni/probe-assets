@@ -30,8 +30,9 @@ tar -cvzf "assets/generic-assets-${version}.tar.gz"                            \
 mv ca-bundle.pem assets/
 mv asn.mmdb assets/
 mv country.mmdb assets/
-gzip -k9 assets/*.mmdb
 shasum -a 256 assets/* > SHA256SUMS
+gzip -9 assets/*.mmdb assets/*.pem
+shasum -a 256 assets/*.mmdb.gz assets/*.pem.gz >> SHA256SUMS
 git add SHA256SUMS
 echo "# To continue with the release run"
 echo "- git commit -am \"Release $version\""
