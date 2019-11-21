@@ -87,15 +87,17 @@ mkdir assets
 version=`date +%Y%m%d%H%M%S`
 assets_get_geoip
 curl -fsSLo $ca_bundle_name https://curl.haxx.se/ca/cacert.pem
-tar -cvzf "assets/generic-assets-${version}.tar.gz"                            \
-  "README.md" "$asn_database_name" "$ca_bundle_name" "$country_database_name"
 mv $ca_bundle_name assets/
 mv $asn_database_name assets/
 mv $country_database_name assets/
 rm -rf $sha256sums
 shasum -a 256 assets/*                                           >> $sha256sums
-gzip -9 assets/*.mmdb assets/*.pem
+gzip -n -9 assets/*.mmdb assets/*.pem
 shasum -a 256 assets/*.mmdb.gz assets/*.pem.gz                   >> $sha256sums
+if git diff --quiet; then
+  echo "Nothing changed, nothing to do."
+  exit 0
+fi
 assets_rewrite_assets_go $version
 git add $sha256sums $assets_go
 echo "# To continue with the release run"
