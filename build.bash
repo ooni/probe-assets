@@ -87,19 +87,17 @@ mkdir assets
 version=`date +%Y%m%d%H%M%S`
 assets_get_geoip
 curl -fsSLo $ca_bundle_name https://curl.haxx.se/ca/cacert.pem
-# The following is required to create idempotent archives as documented in
-# this StackOverflow post: <https://stackoverflow.com/a/54908072>.
-tar -cvf "assets/generic-assets.tar" --mtime="2019-01-01 00:00:00"             \
-  --sort=name --owner=root:0 --group=root:0                                    \
-  "README.md" "$asn_database_name" "$ca_bundle_name" "$country_database_name"
 mv $ca_bundle_name assets/
 mv $asn_database_name assets/
 mv $country_database_name assets/
 rm -rf $sha256sums
-gzip -n -9 assets/*.tar
 shasum -a 256 assets/*                                           >> $sha256sums
 gzip -n -9 assets/*.mmdb assets/*.pem
 shasum -a 256 assets/*.mmdb.gz assets/*.pem.gz                   >> $sha256sums
+if git diff --quiet; then
+  echo "Nothing changed, nothing to do."
+  exit 0
+fi
 assets_rewrite_assets_go $version
 git add $sha256sums $assets_go
 echo "# To continue with the release run"
