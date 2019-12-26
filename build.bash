@@ -92,7 +92,17 @@ mv $asn_database_name assets/
 mv $country_database_name assets/
 rm -rf $sha256sums
 shasum -a 256 assets/*                                           >> $sha256sums
-gzip -n -9 assets/*.mmdb assets/*.pem
+go build -v ./cmd/gzipidempotent
+(
+  set -x
+  cd assets
+  ../gzipidempotent
+)
+for file in assets/*.gz; do
+  gunzip -c $file > AAA_temporary
+  cmp $(echo $file|sed 's/.gz$//g') AAA_temporary
+  rm AAA_temporary
+done
 shasum -a 256 assets/*.mmdb.gz assets/*.pem.gz                   >> $sha256sums
 if git diff --quiet; then
   echo "Nothing changed, nothing to do."
