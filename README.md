@@ -1,6 +1,6 @@
 # OONI Probe Assets
 
-[![Build Status](https://travis-ci.org/ooni/probe-assets.svg?branch=master)](https://travis-ci.org/ooni/probe-assets)
+[![Build Status](https://travis-ci.com/ooni/probe-assets.svg?branch=master)](https://travis-ci.com/ooni/probe-assets)
 
 Repository for packaging generic OONI and MK assets. It includes MaxMind DB
 files and the CA bundle retrieved from CURL. Go consumers should vendor and use
