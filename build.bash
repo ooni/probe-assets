@@ -47,7 +47,7 @@ assets_rewrite_assets_go() {
   echo "  CountryDatabaseName = \"$country_database_name\""        >> $assets_go
   echo ""                                                          >> $assets_go
   echo "  // RepositoryURL is the asset's repository URL"          >> $assets_go
-  echo "  RepositoryURL = \"http://github.com/ooni/probe-assets\"" >> $assets_go
+  echo "  RepositoryURL = \"https://github.com/ooni/probe-assets\"" >> $assets_go
   echo ")"                                                         >> $assets_go
   echo ""                                                          >> $assets_go
   echo "// ResourceInfo contains information on a resource."       >> $assets_go

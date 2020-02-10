@@ -7,4 +7,4 @@ files and the CA bundle retrieved from CURL. Go consumers should vendor and use
 `assets.go`. A periodic build on Travis ensures that assets are up to date.
 
 This product includes GeoLite2 data created by MaxMind, available from
-<a href="http://www.maxmind.com">http://www.maxmind.com</a>.
+<a href="https://www.maxmind.com">https://www.maxmind.com</a>.
