@@ -1,5 +1,0 @@
-language: minimal
-dist: xenial
-script:
-- ./build.bash
-- git diff --cached --exit-code
