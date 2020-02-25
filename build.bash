@@ -24,7 +24,7 @@ assets_get_geoip() {
     ooni_asn_database_version=20191226162429
     curl -fsSLO $ooni_asn_database_base_url/$ooni_asn_database_version/$ooni_asn_database_name.gz
     gunzip $ooni_asn_database_name.gz
-    mv $ooni_asn_database_name $asn_database_name
+    ##mv $ooni_asn_database_name $asn_database_name  # currently they have the same name :^)
 }
 
 # assets_rewrite_assets_go rewrites $assets_go
