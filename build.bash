@@ -8,63 +8,63 @@ ca_bundle_name=ca-bundle.pem
 country_database_name=country.mmdb
 sha256sums=SHA256SUMS
 
-# assets_get_geoip is copied from MK v0.10.0. It downloads the
-# maxmind DB databases from MaxMind's site.
+# assets_get_geoip downloads the country and ASN databases.
+#
+# We're currently stuck in a situation where we're using db-ip.com for the
+# country and the lastest publicly available MaxMind DB for the ASN. See
+# also <https://github.com/ooni/probe-engine/issues/269>.
 assets_get_geoip() {
     echo "* Fetching geoip databases"
-    base=https://geolite.maxmind.com/download/geoip/database
-    if [ ! -f "$country_database_name" ]; then
-        curl -fsSLO $base/GeoLite2-Country.tar.gz
-        tar -xf GeoLite2-Country.tar.gz
-        mv GeoLite2-Country_20??????/GeoLite2-Country.mmdb $country_database_name
-        rm -rf GeoLite2-Country_20?????? GeoLite2-Country.tar.gz
-    fi
-    if [ ! -f "$asn_database_name" ]; then
-        curl -fsSLO $base/GeoLite2-ASN.tar.gz
-        tar -xf GeoLite2-ASN.tar.gz
-        mv GeoLite2-ASN_20??????/GeoLite2-ASN.mmdb $asn_database_name
-        rm -rf GeoLite2-ASN_20?????? GeoLite2-ASN.tar.gz
-    fi
+    dbip_country_database_name=dbip-country-lite-2020-02.mmdb
+    curl -fsSLO https://download.db-ip.com/free/$dbip_country_database_name.gz
+    gunzip $dbip_country_database_name.gz
+    mv $dbip_country_database_name $country_database_name
+    ooni_asn_database_name=asn.mmdb
+    ooni_asn_database_base_url=https://github.com/ooni/probe-assets/releases/download/
+    ooni_asn_database_version=20191226162429
+    curl -fsSLO $ooni_asn_database_base_url/$ooni_asn_database_version/$ooni_asn_database_name.gz
+    gunzip $ooni_asn_database_name.gz
+    mv $ooni_asn_database_name $asn_database_name
 }
 
 # assets_rewrite_assets_go rewrites $assets_go
 assets_rewrite_assets_go() {
   echo "* Updating $assets_go"
   rm -rf $assets_go
-  echo "package resources"                                         >> $assets_go
-  echo ""                                                          >> $assets_go
-  echo "const ("                                                   >> $assets_go
-  echo "  // Version contains the assets version."                 >> $assets_go
-  echo "  Version = $1"                                            >> $assets_go
-  echo ""                                                          >> $assets_go
-  echo "  // ASNDatabaseName is the ASN-DB file name"              >> $assets_go
-  echo "  ASNDatabaseName = \"$asn_database_name\""                >> $assets_go
-  echo ""                                                          >> $assets_go
-  echo "  // CABundleName is the name of the CA bundle file"       >> $assets_go
-  echo "  CABundleName = \"$ca_bundle_name\""                      >> $assets_go
-  echo ""                                                          >> $assets_go
-  echo "  // CountryDatabaseName is country-DB file name"          >> $assets_go
-  echo "  CountryDatabaseName = \"$country_database_name\""        >> $assets_go
-  echo ""                                                          >> $assets_go
-  echo "  // RepositoryURL is the asset's repository URL"          >> $assets_go
+  echo "package resources"                                          >> $assets_go
+  echo ""                                                           >> $assets_go
+  echo "const ("                                                    >> $assets_go
+  echo "  // Version contains the assets version."                  >> $assets_go
+  echo "  Version = $1"                                             >> $assets_go
+  echo ""                                                           >> $assets_go
+  echo "  // ASNDatabaseName is the ASN-DB file name"               >> $assets_go
+  echo "  ASNDatabaseName = \"$asn_database_name\""                 >> $assets_go
+  echo ""                                                           >> $assets_go
+  echo "  // CABundleName is the name of the CA bundle file"        >> $assets_go
+  echo "  CABundleName = \"$ca_bundle_name\""                       >> $assets_go
+  echo ""                                                           >> $assets_go
+  echo "  // CountryDatabaseName is country-DB file name"           >> $assets_go
+  echo "  CountryDatabaseName = \"$country_database_name\""         >> $assets_go
+  echo ""                                                           >> $assets_go
+  echo "  // RepositoryURL is the asset's repository URL"           >> $assets_go
   echo "  RepositoryURL = \"https://github.com/ooni/probe-assets\"" >> $assets_go
-  echo ")"                                                         >> $assets_go
-  echo ""                                                          >> $assets_go
-  echo "// ResourceInfo contains information on a resource."       >> $assets_go
-  echo "type ResourceInfo struct {"                                >> $assets_go
-  echo "  // URLPath is the resource's URL path."                  >> $assets_go
-  echo "  URLPath string"                                          >> $assets_go
-  echo ""                                                          >> $assets_go
-  echo "  // GzSHA256 is used to validate the downloaded file."    >> $assets_go
-  echo "  GzSHA256 string"                                         >> $assets_go
-  echo ""                                                          >> $assets_go
-  echo "  // SHA256 is used to check whether the assets file"      >> $assets_go
-  echo "  // stored locally is still up-to-date."                  >> $assets_go
-  echo "  SHA256 string"                                           >> $assets_go
-  echo "}"                                                         >> $assets_go
-  echo ""                                                          >> $assets_go
-  echo "// All contains info on all known assets."                 >> $assets_go
-  echo "var All = map[string]ResourceInfo{"                        >> $assets_go
+  echo ")"                                                          >> $assets_go
+  echo ""                                                           >> $assets_go
+  echo "// ResourceInfo contains information on a resource."        >> $assets_go
+  echo "type ResourceInfo struct {"                                 >> $assets_go
+  echo "  // URLPath is the resource's URL path."                   >> $assets_go
+  echo "  URLPath string"                                           >> $assets_go
+  echo ""                                                           >> $assets_go
+  echo "  // GzSHA256 is used to validate the downloaded file."     >> $assets_go
+  echo "  GzSHA256 string"                                          >> $assets_go
+  echo ""                                                           >> $assets_go
+  echo "  // SHA256 is used to check whether the assets file"       >> $assets_go
+  echo "  // stored locally is still up-to-date."                   >> $assets_go
+  echo "  SHA256 string"                                            >> $assets_go
+  echo "}"                                                          >> $assets_go
+  echo ""                                                           >> $assets_go
+  echo "// All contains info on all known assets."                  >> $assets_go
+  echo "var All = map[string]ResourceInfo{"                         >> $assets_go
   for name in $asn_database_name $ca_bundle_name $country_database_name; do
     local gzsha256=$(grep $name.gz$ $sha256sums | awk '{print $1}')
     local sha256=$(grep $name$ $sha256sums | awk '{print $1}')
