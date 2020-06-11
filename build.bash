@@ -47,8 +47,8 @@ assets_rewrite_assets_go() {
   echo "  // CountryDatabaseName is country-DB file name"           >> $assets_go
   echo "  CountryDatabaseName = \"$country_database_name\""         >> $assets_go
   echo ""                                                           >> $assets_go
-  echo "  // RepositoryURL is the asset's repository URL"           >> $assets_go
-  echo "  RepositoryURL = \"https://github.com/ooni/probe-assets\"" >> $assets_go
+  echo "  // BaseURL is the asset's repository base URL"            >> $assets_go
+  echo "  BaseURL = \"https://github.com/\""                        >> $assets_go
   echo ")"                                                          >> $assets_go
   echo ""                                                           >> $assets_go
   echo "// ResourceInfo contains information on a resource."        >> $assets_go
@@ -73,11 +73,11 @@ assets_rewrite_assets_go() {
       echo "FATAL: cannot get GzSHA256 or SHA256" 1>&2
       exit 1
     fi
-    echo "    \"$name\": {"                                       >> $assets_go
-    echo "      URLPath: \"/releases/download/$1/$name.gz\","     >> $assets_go
-    echo "      GzSHA256: \"$gzsha256\","                         >> $assets_go
-    echo "      SHA256: \"$sha256\","                             >> $assets_go
-    echo "    },"                                                 >> $assets_go
+    echo "    \"$name\": {"                                                      >> $assets_go
+    echo "      URLPath: \"/ooni/probe-assets/releases/download/$1/$name.gz\","  >> $assets_go
+    echo "      GzSHA256: \"$gzsha256\","                                        >> $assets_go
+    echo "      SHA256: \"$sha256\","                                            >> $assets_go
+    echo "    },"                                                                >> $assets_go
   done
   echo "}"                                                        >> $assets_go
   go fmt $assets_go
