@@ -2,6 +2,8 @@
 set -e
 set -o pipefail
 
+export GO111MODULE=off
+
 assets_go=assets.go
 asn_database_name=asn.mmdb
 ca_bundle_name=ca-bundle.pem
@@ -18,7 +20,7 @@ sha256sums=SHA256SUMS
 #     <https://github.com/ooni/asn-db-generator>.
 assets_get_geoip() {
     echo "* Fetching geoip databases"
-    dbip_country_database_name=dbip-country-lite-2020-07.mmdb
+    dbip_country_database_name=dbip-country-lite-2020-08.mmdb
     curl -fsSLO https://download.db-ip.com/free/$dbip_country_database_name.gz
     gunzip $dbip_country_database_name.gz
     mv $dbip_country_database_name $country_database_name
