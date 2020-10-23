@@ -6,7 +6,6 @@ export GO111MODULE=off
 
 assets_go=assets.go
 asn_database_name=asn.mmdb
-ca_bundle_name=ca-bundle.pem
 country_database_name=country.mmdb
 sha256sums=SHA256SUMS
 
@@ -43,9 +42,6 @@ assets_rewrite_assets_go() {
   echo "  // ASNDatabaseName is the ASN-DB file name"               >> $assets_go
   echo "  ASNDatabaseName = \"$asn_database_name\""                 >> $assets_go
   echo ""                                                           >> $assets_go
-  echo "  // CABundleName is the name of the CA bundle file"        >> $assets_go
-  echo "  CABundleName = \"$ca_bundle_name\""                       >> $assets_go
-  echo ""                                                           >> $assets_go
   echo "  // CountryDatabaseName is country-DB file name"           >> $assets_go
   echo "  CountryDatabaseName = \"$country_database_name\""         >> $assets_go
   echo ""                                                           >> $assets_go
@@ -68,7 +64,7 @@ assets_rewrite_assets_go() {
   echo ""                                                           >> $assets_go
   echo "// All contains info on all known assets."                  >> $assets_go
   echo "var All = map[string]ResourceInfo{"                         >> $assets_go
-  for name in $asn_database_name $ca_bundle_name $country_database_name; do
+  for name in $asn_database_name $country_database_name; do
     local gzsha256=$(grep $name.gz$ $sha256sums | awk '{print $1}')
     local sha256=$(grep $name$ $sha256sums | awk '{print $1}')
     if [ -z $gzsha256 -o -z $sha256 ]; then
@@ -89,8 +85,6 @@ rm -rf assets
 mkdir assets
 version=`date +%Y%m%d%H%M%S`
 assets_get_geoip
-curl -fsSLo $ca_bundle_name https://curl.haxx.se/ca/cacert.pem
-mv $ca_bundle_name assets/
 mv $asn_database_name assets/
 mv $country_database_name assets/
 rm -rf $sha256sums
@@ -106,7 +100,7 @@ for file in assets/*.gz; do
   cmp $(echo $file|sed 's/.gz$//g') AAA_temporary
   rm AAA_temporary
 done
-shasum -a 256 assets/*.mmdb.gz assets/*.pem.gz                   >> $sha256sums
+shasum -a 256 assets/*.mmdb.gz                                   >> $sha256sums
 if git diff --quiet; then
   echo "Nothing changed, nothing to do."
   exit 0

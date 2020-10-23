@@ -15,7 +15,7 @@ func must(err error, message string) {
 }
 
 func main() {
-	for _, name := range []string{"asn.mmdb", "ca-bundle.pem", "country.mmdb"} {
+	for _, name := range []string{"asn.mmdb", "country.mmdb"} {
 		var buf bytes.Buffer
 		zw := gzip.NewWriter(&buf)
 		zw.Name = name
