@@ -56,7 +56,7 @@ version=`date +%Y%m%d%H%M%S`
 echo "Now you should run the following commands:"
 echo ""
 echo "- git checkout -b vendor-$version"
-echo "- git add assets/*.mmdb"
+echo "- git add assets/*.mmdb.gz"
 echo "- git commit -am \"Release $version\""
 echo "- git push origin vendor-$version"
 echo ""
