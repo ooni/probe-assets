@@ -1,12 +1,20 @@
 // Package assets contains the embedded assets
 package assets
 
-import "embed"
+import _ "embed"
 
-// go:embed *.mmdb.gz
-var efs embed.FS
+//go:embed asn.mmdb.gz
+var asnDatabaseDataGzip []byte
 
-// Assets returns the embedded FS containing the assets.
-func Assets() embed.FS {
-	return efs
+// ASNDatabaseDataGzip returns the gzipped ASN database data.
+func ASNDatabaseDataGzip() []byte {
+	return asnDatabaseDataGzip
+}
+
+//go:embed country.mmdb.gz
+var countryDatabaseDataGzip []byte
+
+// CountryDatabaseDataGzip returns the gzipped country database data.
+func CountryDatabaseDataGzip() []byte {
+	return countryDatabaseDataGzip
 }

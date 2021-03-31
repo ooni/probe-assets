@@ -25,11 +25,11 @@ rm -f ./assets/*.mmdb ./assets/*.mmdb.gz
 set +x
 
 # Fetch the country DB file.
-country_db_file=./assets/country.mmdb.gz
+country_db_file=./assets/country.mmdb
 country_db_gzfile=${country_db_file}.gz
 set -x
 curl -fsSLo $country_db_gzfile $country_db_url
-gunzip $country_db_gzfile
+gunzip -k $country_db_gzfile
 set +x
 sha1sum=`shasum -a1 $country_db_file | awk '{print $1}'`
 if [ "$sha1sum" != "$country_db_sha1sum" ]; then
@@ -47,6 +47,9 @@ if [ "$sha256sum" != "$asn_db_sha256sum" ]; then
   echo "FATAL: asn database does not match the expected sha256sum" 1>&2
   exit 1
 fi
+
+# Make sure what we have downloaded kinda works.
+go test -v ./...
 
 # Instructions to make a release.
 version=`date +%Y%m%d%H%M%S`
