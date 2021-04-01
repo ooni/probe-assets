@@ -24,7 +24,7 @@ set -x
 rm -f ./assets/*.mmdb ./assets/*.mmdb.gz
 set +x
 
-# Fetch the country DB file.
+# Fetch the country DB file, decompress and verify it.
 country_db_file=./assets/country.mmdb
 country_db_gzfile=${country_db_file}.gz
 set -x
@@ -37,7 +37,7 @@ if [ "$sha1sum" != "$country_db_sha1sum" ]; then
   exit 1
 fi
 
-# Fetch the asn DB file.
+# Fetch the asn DB file, verify and decompress it.
 asn_db_gzfile=./assets/asn.mmdb.gz
 set -x
 curl -fsSLo $asn_db_gzfile $asn_db_url
@@ -47,8 +47,9 @@ if [ "$sha256sum" != "$asn_db_sha256sum" ]; then
   echo "FATAL: asn database does not match the expected sha256sum" 1>&2
   exit 1
 fi
+gunzip -k $asn_db_gzfile
 
-# Make sure what we have downloaded kinda works.
+# Make sure what we have downloaded does not emit smoke.
 go test -v ./...
 
 # Instructions to make a release.
@@ -56,7 +57,7 @@ version=`date +%Y%m%d%H%M%S`
 echo "Now you should run the following commands:"
 echo ""
 echo "- git checkout -b vendor-$version"
-echo "- git add assets/*.mmdb.gz"
+echo "- git add assets/*.mmdb"
 echo "- git commit -am \"Release $version\""
 echo "- git push origin vendor-$version"
 echo ""
