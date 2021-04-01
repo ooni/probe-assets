@@ -1,9 +1,6 @@
 package assets
 
 import (
-	"bytes"
-	"compress/gzip"
-	"io/ioutil"
 	"net"
 	"testing"
 
@@ -11,16 +8,7 @@ import (
 )
 
 func TestASN(t *testing.T) {
-	data := ASNDatabaseDataGzip()
-	reader, err := gzip.NewReader(bytes.NewReader(data))
-	if err != nil {
-		t.Fatal(err)
-	}
-	defer reader.Close()
-	data, err = ioutil.ReadAll(reader)
-	if err != nil {
-		t.Fatal(err)
-	}
+	data := ASNDatabaseData()
 	db, err := geoip2.FromBytes(data)
 	if err != nil {
 		t.Fatal(err)
@@ -34,16 +22,7 @@ func TestASN(t *testing.T) {
 }
 
 func TestCountry(t *testing.T) {
-	data := CountryDatabaseDataGzip()
-	reader, err := gzip.NewReader(bytes.NewReader(data))
-	if err != nil {
-		t.Fatal(err)
-	}
-	defer reader.Close()
-	data, err = ioutil.ReadAll(reader)
-	if err != nil {
-		t.Fatal(err)
-	}
+	data := CountryDatabaseData()
 	db, err := geoip2.FromBytes(data)
 	if err != nil {
 		t.Fatal(err)
