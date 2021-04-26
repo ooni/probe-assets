@@ -8,10 +8,10 @@ set -e
 # Regarding the country database, you SHOULD check if a new version
 # is available, update the URL and the sha1sum (they don't provide
 # anything better than SHA1, so I guess we have to live with it).
-country_db_url=https://download.db-ip.com/free/dbip-country-lite-2021-03.mmdb.gz
-country_db_sha1sum=35ca83d9210ca48696918a12f1d24d22754f803a
-asn_db_url=https://github.com/ooni/asn-db-generator/releases/download/20210331153739/asn.mmdb.gz
-asn_db_sha256sum=8705e2afa2b8422cf54fedd707597a06e2737516a5ca72179b37bc717963b21b
+country_db_url=https://download.db-ip.com/free/dbip-country-lite-2021-04.mmdb.gz
+country_db_sha1sum=91804a84a3962ce16adfa00ef22463626b5db295
+asn_db_url=https://github.com/ooni/asn-db-generator/releases/download/20210426113524/asn.mmdb.gz
+asn_db_sha256sum=cb8ccecf45c2fe6b7ff7d027399d6fdc337e6bff7da9cd0c0bced83d32db5f8e
 
 # Make sure you are in the master branch of the repository.
 if [ "`git branch --show-current`" != "master" ]; then
@@ -53,16 +53,17 @@ gunzip -k $asn_db_gzfile
 go test -v ./...
 
 # Instructions to make a release.
-version=`date +%Y%m%d%H%M%S`
+version=`cat VERSION`
+version=$(($version + 1))
+echo $version > VERSION
 echo "Now you should run the following commands:"
 echo ""
-echo "- git checkout -b vendor-$version"
+echo "- git checkout -b vendor-0.$version.0"
 echo "- git add assets/*.mmdb"
-echo "- git commit -am \"Release $version\""
-echo "- git push origin vendor-$version"
+echo "- git commit -am \"Release 0.$version.0\""
+echo "- git push origin vendor-0.$version.0"
 echo ""
 echo "For updating, you need to go in github.com/ooni/probe-cli and run:"
 echo ""
-echo "- go get -v github.com/ooni/probe-assets@HEAD"
+echo "- go get -v github.com/ooni/probe-assets@0.$version.0"
 echo ""
-echo "Where HEAD is the latest commit in the vendor-$version branch."
