@@ -8,10 +8,10 @@ set -e
 # Regarding the country database, you SHOULD check if a new version
 # is available, update the URL and the sha1sum (they don't provide
 # anything better than SHA1, so I guess we have to live with it).
-country_db_url=https://download.db-ip.com/free/dbip-country-lite-2021-04.mmdb.gz
-country_db_sha1sum=91804a84a3962ce16adfa00ef22463626b5db295
-asn_db_url=https://github.com/ooni/asn-db-generator/releases/download/20210426113524/asn.mmdb.gz
-asn_db_sha256sum=cb8ccecf45c2fe6b7ff7d027399d6fdc337e6bff7da9cd0c0bced83d32db5f8e
+country_db_url=https://download.db-ip.com/free/dbip-country-lite-2021-05.mmdb.gz
+country_db_sha1sum=0b2f518db71f3002a98286e649e8b5ac80577c56
+asn_db_url=https://github.com/ooni/asn-db-generator/releases/download/20210513045517/asn.mmdb.gz
+asn_db_sha256sum=64a2a9746b6fb7711bb9156fefb9cd499071427b660cc8af1a1d0bdd5d2a1741
 
 # Make sure you are in the master branch of the repository.
 if [ "`git branch --show-current`" != "master" ]; then

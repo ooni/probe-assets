@@ -17,3 +17,11 @@ This product includes GeoLite2 data created by MaxMind, available from
 includes <a href='https://db-ip.com'>IP Geolocation by DB-IP</a>.
 
 Report issues for this repo at https://github.com/ooni/probe-engine/issues.
+
+## Release instructions
+
+1. edit `build.sh` and update the database URLs and their checksums;
+
+2. run `./build.sh`
+
+3. follow on-screen instructions.
