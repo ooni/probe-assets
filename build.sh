@@ -10,8 +10,8 @@ set -e
 # anything better than SHA1, so I guess we have to live with it).
 country_db_url=https://download.db-ip.com/free/dbip-country-lite-2021-10.mmdb.gz
 country_db_sha1sum=d9965ec42db08ffecd5297a2dbe46ed02089e5da
-asn_db_url=https://github.com/ooni/asn-db-generator/releases/download/20211020111753/asn.mmdb.gz
-asn_db_sha256sum=25ab10ee77220e6412603c9b6c525e597b04039a5769c147ba8ab2cbea96c1e7
+asn_db_url=https://github.com/ooni/asn-db-generator/releases/download/20211020141014/asn.mmdb.gz
+asn_db_sha256sum=41e92d8335b421c72f6ae36bb48c814556ab4a6743fbcc337cddfe53b73ec8d6
 
 # Make sure you are in the master branch of the repository.
 # See https://git-blame.blogspot.com/2013/06/checking-current-branch-programatically.html
