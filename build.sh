@@ -63,6 +63,7 @@ go test -v ./...
 version=`cat VERSION`
 version=$(($version + 1))
 echo $version > VERSION
+git commit -m "Bump version to 0.$version.0" VERSION
 echo "Now you should run the following commands:"
 echo ""
 echo "- git checkout -b vendor-0.$version.0"
