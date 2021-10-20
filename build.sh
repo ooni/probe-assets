@@ -13,6 +13,12 @@ country_db_sha1sum=d9965ec42db08ffecd5297a2dbe46ed02089e5da
 asn_db_url=https://github.com/ooni/asn-db-generator/releases/download/20211020141014/asn.mmdb.gz
 asn_db_sha256sum=41e92d8335b421c72f6ae36bb48c814556ab4a6743fbcc337cddfe53b73ec8d6
 
+# See https://remarkablemark.org/blog/2017/10/12/check-git-dirty/
+[[ -z `git status -s` ]] || {
+    echo "fatal: repository contains modified or untracked files"
+    exit 1
+}
+
 # Make sure you are in the master branch of the repository.
 # See https://git-blame.blogspot.com/2013/06/checking-current-branch-programatically.html
 [[ "`git symbolic-ref --short -q HEAD`" == "master" ]] || {
