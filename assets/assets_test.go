@@ -18,7 +18,12 @@ func TestASN(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	t.Log(record)
+	if record.AutonomousSystemNumber != 15169 {
+		t.Fatal("invalid ASN", record.AutonomousSystemNumber)
+	}
+	if record.AutonomousSystemOrganization != "Google LLC" {
+		t.Fatal("invalid organization", record.AutonomousSystemOrganization)
+	}
 }
 
 func TestCountry(t *testing.T) {
@@ -32,5 +37,7 @@ func TestCountry(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	t.Log(record)
+	if record.Country.IsoCode != "US" {
+		t.Fatal("invalid country", record.Country.IsoCode)
+	}
 }
