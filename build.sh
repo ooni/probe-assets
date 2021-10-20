@@ -8,16 +8,17 @@ set -e
 # Regarding the country database, you SHOULD check if a new version
 # is available, update the URL and the sha1sum (they don't provide
 # anything better than SHA1, so I guess we have to live with it).
-country_db_url=https://download.db-ip.com/free/dbip-country-lite-2021-05.mmdb.gz
-country_db_sha1sum=0b2f518db71f3002a98286e649e8b5ac80577c56
-asn_db_url=https://github.com/ooni/asn-db-generator/releases/download/20210513045517/asn.mmdb.gz
-asn_db_sha256sum=64a2a9746b6fb7711bb9156fefb9cd499071427b660cc8af1a1d0bdd5d2a1741
+country_db_url=https://download.db-ip.com/free/dbip-country-lite-2021-10.mmdb.gz
+country_db_sha1sum=d9965ec42db08ffecd5297a2dbe46ed02089e5da
+asn_db_url=https://github.com/ooni/asn-db-generator/releases/download/20211020111753/asn.mmdb.gz
+asn_db_sha256sum=25ab10ee77220e6412603c9b6c525e597b04039a5769c147ba8ab2cbea96c1e7
 
 # Make sure you are in the master branch of the repository.
-if [ "`git branch --show-current`" != "master" ]; then
+# See https://git-blame.blogspot.com/2013/06/checking-current-branch-programatically.html
+[[ "`git symbolic-ref --short -q HEAD`" == "master" ]] || {
   echo "FATAL: not on the master branch" 1>&2
   exit 1
-fi
+}
 
 # Remove leftovers.
 set -x
