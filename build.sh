@@ -8,10 +8,10 @@ set -e
 # Regarding the country database, you SHOULD check if a new version
 # is available, update the URL and the sha1sum (they don't provide
 # anything better than SHA1, so I guess we have to live with it).
-country_db_url=https://download.db-ip.com/free/dbip-country-lite-2021-10.mmdb.gz
-country_db_sha1sum=d9965ec42db08ffecd5297a2dbe46ed02089e5da
-asn_db_url=https://github.com/ooni/asn-db-generator/releases/download/20211020141014/asn.mmdb.gz
-asn_db_sha256sum=41e92d8335b421c72f6ae36bb48c814556ab4a6743fbcc337cddfe53b73ec8d6
+country_db_url=https://download.db-ip.com/free/dbip-country-lite-2021-12.mmdb.gz
+country_db_sha1sum=d068bcdad6c7055cb2e95c6914a67cf3a87b6254
+asn_db_url=https://github.com/ooni/asn-db-generator/releases/download/20211206152521/asn.mmdb.gz
+asn_db_sha256sum=1175024a83d5601e8aeaf34a9d3965137715df7ac87f604669b0090fa77db5d2
 
 # See https://remarkablemark.org/blog/2017/10/12/check-git-dirty/
 [[ -z `git status -s` ]] || {
