@@ -3,10 +3,10 @@ set -e
 
 # Variables you should set when updating. You SHOULD check on
 # https://db-ip.com/ if a new version is available.
-country_db_url=https://download.db-ip.com/free/dbip-country-lite-2022-01.mmdb.gz
-country_db_sha1sum=f86e40d74cdd14ef64a966bcd7b9c5fd835f3187
-asn_db_url=https://download.db-ip.com/free/dbip-asn-lite-2022-01.mmdb.gz
-asn_db_sha1sum=0f6e7317e124dcc532011dea3abfc32b73983a91
+country_db_url=https://download.db-ip.com/free/dbip-country-lite-2022-04.mmdb.gz
+country_db_sha1sum=fa1928486a85098edb4ee8869fa4fe6d705735a0
+asn_db_url=https://download.db-ip.com/free/dbip-asn-lite-2022-04.mmdb.gz
+asn_db_sha1sum=6030d7942a38dddd9cbbae9480d0639843b7c88a
 
 # Remove leftovers.
 set -x
