@@ -10,11 +10,10 @@ to the most recent branch using:
 ```bash
 go get -v github.com/ooni/probe-assets@HEAD
 ```
+
 where HEAD is the most recent commit inside such a branch.
 
-This product includes GeoLite2 data created by MaxMind, available from
-<a href="https://www.maxmind.com">https://www.maxmind.com</a>. This product
-includes <a href='https://db-ip.com'>IP Geolocation by DB-IP</a>.
+This product includes <a href='https://db-ip.com'>IP Geolocation by DB-IP</a>.
 
 Report issues for this repo at https://github.com/ooni/probe/issues.
 
