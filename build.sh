@@ -5,8 +5,10 @@ set -e
 # https://db-ip.com/ if a new version is available.
 country_db_url=https://download.db-ip.com/free/dbip-country-lite-2022-09.mmdb.gz
 country_db_sha1sum=c293560345b5043c2a49051474e8be87b31d358e
-asn_db_url=https://download.db-ip.com/free/dbip-asn-lite-2022-09.mmdb.gz
-asn_db_sha1sum=b5c19979bd672ec2298c0f5355a7824701f7491a
+
+# See https://github.com/ooni/probe/issues/2271
+asn_db_url=https://download.db-ip.com/free/dbip-asn-lite-2022-08.mmdb.gz
+asn_db_sha1sum=c5e17f70ac3d282eb58a55f9ba9e20ad1fa1e097
 
 # Remove leftovers.
 set -x
