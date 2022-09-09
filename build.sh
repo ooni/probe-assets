@@ -63,7 +63,7 @@ set -x
 go test -v ./...
 set +x
 
-if [ "$1" = "-n" ]; then
+if [[ $# -ge 1 && "$1" = "-n" ]]; then
   exit 0  # dry-run
 fi
 
