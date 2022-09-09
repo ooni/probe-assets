@@ -16,17 +16,17 @@ rm -f ./assets/*.mmdb ./assets/*.mmdb.gz
 set +x
 
 # See https://remarkablemark.org/blog/2017/10/12/check-git-dirty/
-[[ -z `git status -s` ]] || {
-    echo "fatal: repository contains modified or untracked files"
-    exit 1
+[[ -z $(git status -s) ]] || {
+	echo "fatal: repository contains modified or untracked files"
+	exit 1
 }
 
 # Make sure you are in the master branch of the repository.
 # See https://git-blame.blogspot.com/2013/06/checking-current-branch-programatically.html
-__ref=`git symbolic-ref --short -q HEAD`
-[[ "$__ref" == "master" || "$__ref" == "main" ]] || {
-  echo "FATAL: not on the master branch" 1>&2
-  exit 1
+__ref=$(git symbolic-ref --short -q HEAD)
+[[ $__ref == "master" || $__ref == "main" ]] || {
+	echo "FATAL: not on the master branch" 1>&2
+	exit 1
 }
 
 # Fetch the country DB file, decompress and verify it.
@@ -36,10 +36,10 @@ set -x
 curl -fsSLo $country_db_gzfile $country_db_url
 gunzip -k $country_db_gzfile
 set +x
-sha1sum=`shasum -a1 $country_db_file | awk '{print $1}'`
+sha1sum=$(shasum -a1 $country_db_file | awk '{print $1}')
 if [ "$sha1sum" != "$country_db_sha1sum" ]; then
-  echo "FATAL: country database does not match the expected sha1sum" 1>&2
-  exit 1
+	echo "FATAL: country database does not match the expected sha1sum" 1>&2
+	exit 1
 fi
 
 # Fetch the asn DB file, verify and decompress it.
@@ -49,10 +49,10 @@ set -x
 curl -fsSLo $asn_db_gzfile $asn_db_url
 gunzip -k $asn_db_gzfile
 set +x
-sha1sum=`shasum -a1 $asn_db_file | awk '{print $1}'`
+sha1sum=$(shasum -a1 $asn_db_file | awk '{print $1}')
 if [ "$sha1sum" != "$asn_db_sha1sum" ]; then
-  echo "FATAL: asn database does not match the expected sha1sum" 1>&2
-  exit 1
+	echo "FATAL: asn database does not match the expected sha1sum" 1>&2
+	exit 1
 fi
 
 # Verify the downloaded databases
@@ -63,14 +63,14 @@ set -x
 go test -v ./...
 set +x
 
-if [[ $# -ge 1 && "$1" = "-n" ]]; then
-  exit 0  # dry-run
+if [[ $# -ge 1 && $1 == "-n" ]]; then
+	exit 0 # dry-run
 fi
 
 # Instructions to make a release.
-version=`cat VERSION`
-version=$(($version + 1))
-echo $version > VERSION
+version=$(cat VERSION)
+version=$((version + 1))
+echo $version >VERSION
 set -x
 git commit -m "Bump version to 0.$version.0" VERSION
 git checkout -b vendor-0.$version.0
