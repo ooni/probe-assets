@@ -52,6 +52,9 @@ if [ "$sha1sum" != "$asn_db_sha1sum" ]; then
   exit 1
 fi
 
+# Verify the downloaded databases
+go run ./cmd/verify $asn_db_file $country_db_file
+
 # Make sure what we have downloaded does not emit smoke.
 set -x
 go test -v ./...
