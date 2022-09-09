@@ -19,8 +19,8 @@ Report issues for this repo at https://github.com/ooni/probe/issues.
 
 ## Release instructions
 
-1. edit `build.sh` and update the database URLs and their checksums;
+1. edit `build.bash` and update the database URLs and their checksums;
 
-2. run `./build.sh`
+2. run `./build.bash`
 
 3. follow on-screen instructions.
