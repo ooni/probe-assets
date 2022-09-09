@@ -74,7 +74,7 @@ echo $version >VERSION
 set -x
 git commit -m "Bump version to 0.$version.0" VERSION
 git checkout -b vendor-0.$version.0
-git add assets/*.mmdb
+git add -f assets/*.mmdb
 git commit -am "Release 0.$version.0"
 git tag -m "Tag v0.$version.0" -s v0.$version.0
 set +x
