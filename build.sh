@@ -1,5 +1,5 @@
-#!/bin/sh
-set -e
+#!/bin/bash
+set -euo pipefail
 
 # Variables you should set when updating. You SHOULD check on
 # https://db-ip.com/ if a new version is available.
@@ -23,7 +23,8 @@ set +x
 
 # Make sure you are in the master branch of the repository.
 # See https://git-blame.blogspot.com/2013/06/checking-current-branch-programatically.html
-[[ "`git symbolic-ref --short -q HEAD`" == "master" ]] || {
+__ref=`git symbolic-ref --short -q HEAD`
+[[ "$__ref" == "master" || "$__ref" == "main" ]] || {
   echo "FATAL: not on the master branch" 1>&2
   exit 1
 }
