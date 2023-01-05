@@ -1,20 +1,6 @@
 #!/bin/bash
 set -euo pipefail
 
-# Variables you should set when updating. You SHOULD check on
-# https://db-ip.com/ if a new version is available.
-country_db_url=https://download.db-ip.com/free/dbip-country-lite-2022-09.mmdb.gz
-country_db_sha1sum=c293560345b5043c2a49051474e8be87b31d358e
-
-# See https://github.com/ooni/probe/issues/2271
-asn_db_url=https://download.db-ip.com/free/dbip-asn-lite-2022-08.mmdb.gz
-asn_db_sha1sum=c5e17f70ac3d282eb58a55f9ba9e20ad1fa1e097
-
-# Remove leftovers.
-set -x
-rm -f ./assets/*.mmdb ./assets/*.mmdb.gz
-set +x
-
 # See https://remarkablemark.org/blog/2017/10/12/check-git-dirty/
 [[ -z $(git status -s) ]] || {
 	echo "fatal: repository contains modified or untracked files"
@@ -29,39 +15,7 @@ __ref=$(git symbolic-ref --short -q HEAD)
 	exit 1
 }
 
-# Fetch the country DB file, decompress and verify it.
-country_db_file=./assets/country.mmdb
-country_db_gzfile=${country_db_file}.gz
-set -x
-curl -fsSLo $country_db_gzfile $country_db_url
-gunzip -k $country_db_gzfile
-set +x
-sha1sum=$(shasum -a1 $country_db_file | awk '{print $1}')
-if [ "$sha1sum" != "$country_db_sha1sum" ]; then
-	echo "FATAL: country database does not match the expected sha1sum" 1>&2
-	exit 1
-fi
-
-# Fetch the asn DB file, verify and decompress it.
-asn_db_file=./assets/asn.mmdb
-asn_db_gzfile=${asn_db_file}.gz
-set -x
-curl -fsSLo $asn_db_gzfile $asn_db_url
-gunzip -k $asn_db_gzfile
-set +x
-sha1sum=$(shasum -a1 $asn_db_file | awk '{print $1}')
-if [ "$sha1sum" != "$asn_db_sha1sum" ]; then
-	echo "FATAL: asn database does not match the expected sha1sum" 1>&2
-	exit 1
-fi
-
-# Verify the downloaded databases
-go run ./cmd/verify $asn_db_file $country_db_file
-
-# Make sure what we have downloaded does not emit smoke.
-set -x
-go test -v ./...
-set +x
+./prepare.bash
 
 if [[ $# -ge 1 && $1 == "-n" ]]; then
 	exit 0 # dry-run

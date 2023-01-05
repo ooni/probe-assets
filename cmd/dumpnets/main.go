@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/oschwald/geoip2-golang"
+	"github.com/ooni/probe-assets/assets"
 	"github.com/oschwald/maxminddb-golang"
 )
 
@@ -22,7 +22,7 @@ func main() {
 	}
 	nets := mmdb.Networks(maxminddb.SkipAliasedNetworks)
 	for nets.Next() {
-		var asn geoip2.ASN
+		var asn assets.OOMMDBRecord
 		net, err := nets.Network(&asn)
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "fatal: nets.Network: %s\n", err.Error())
