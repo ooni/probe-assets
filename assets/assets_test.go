@@ -7,7 +7,7 @@ import (
 	"github.com/oschwald/maxminddb-golang"
 )
 
-func TestASNAndCountry(t *testing.T) {
+func TestLookupASNAndCountry(t *testing.T) {
 	db, err := maxminddb.FromBytes(OOMMDBDatabaseBytes)
 	if err != nil {
 		t.Fatal(err)
