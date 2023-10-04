@@ -3,8 +3,8 @@ set -euxo pipefail
 
 # Variables you should set when updating. You SHOULD check on
 # https://db-ip.com/ if a new version is available.
-db_url=https://archive.org/download/ip2country-as/20230701-ip2country_as.mmdb.gz
-db_sha256=6fe430f09a647f6318ca52f47569d0c742b8f5c6f6a4049a97b91ca10f2fbae0
+db_url=https://archive.org/download/ip2country-as/20231001-ip2country_as.mmdb.gz
+db_sha256=faa9e898068186b9af7fe4c2cb898969bfbdae3a0ab5c269a072056c7c018029
 
 # Remove leftovers.
 rm -f ./assets/*.mmdb ./assets/*.mmdb.gz
