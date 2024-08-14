@@ -1,8 +1,7 @@
 #!/bin/bash
 set -euxo pipefail
 
-# Variables you should set when updating. You SHOULD check on
-# https://db-ip.com/ if a new version is available.
+# Variables you should set when updating:
 db_url=https://archive.org/download/ip2country-as/20240801-ip2country_as.mmdb.gz
 db_sha256=485d4272913c31abb61dc7ce4598479bd1dc946cd829b93472d0c912c654bedb
 
