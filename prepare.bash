@@ -2,8 +2,8 @@
 set -euxo pipefail
 
 # Variables you should set when updating:
-db_url=https://archive.org/download/ip2country-as/20250201-ip2country_as.mmdb.gz	
-db_sha256=55d5d092839aecf6a8302524d5aae17c2751fe073a672e4b5a8bb20511f6fdfd
+db_url=https://archive.org/download/ip2country-as/20250601-ip2country_as.mmdb.gz	
+db_sha256=46e151c64dbf39e619e561643b314e337325f5fd3ab339f19c82070f8db3d4b1
 
 # Remove leftovers.
 rm -f ./assets/*.mmdb ./assets/*.mmdb.gz
