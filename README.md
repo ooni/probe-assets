@@ -19,8 +19,11 @@ Report issues for this repo at https://github.com/ooni/probe/issues.
 
 ## Release instructions
 
-1. edit `prepare.bash` and update the database URL and its SHA256 checksum;
+1. once a month, after the 3rd (when ooni/historical-geoip publishes a new
+database), run `./update.bash` (needs `jq`) to point `prepare.bash` at the
+newest database, and merge that into master; if it says `prepare.bash`
+already uses the newest database, there is nothing to release;
 
-2. run `./build.bash`
+2. run `./build.bash` on master
 
 3. follow on-screen instructions.
